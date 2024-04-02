@@ -17,5 +17,7 @@ jobs:
         run: ls -la
       - name: show current directory after checkout
         run: pwd
+      - name: show current directory after checkout
+        run: whoami
       - name: show all branches after checkout
         run: git branch -a
