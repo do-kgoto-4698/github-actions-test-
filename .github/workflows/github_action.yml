@@ -40,4 +40,4 @@ jobs:
 
       - nam: S3 upload
         run: |
-          aws s3 ls
+          aws s3 ls s3://4698-dev
