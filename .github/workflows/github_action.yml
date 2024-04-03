@@ -3,7 +3,7 @@ name: Auto Deploy
 on:
   push:
     branches:
-      - main
+      - feature-01-ga-test
 
 jobs:
   build_and_deploy:
