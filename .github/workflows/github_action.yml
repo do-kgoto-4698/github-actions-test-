@@ -24,13 +24,22 @@ jobs:
           
       - name: npm version confirm
         run: npm --version
-      - name: npm version confirm
-        run: npm --version
-        
-      - name: Deploy to S3
-        uses: aws-actions/configure-aws-credentials@v1
+      # AWS CLIをインストールする
+      - name: AWS CLI install
         run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region ap-northeast-1
-          aws s3 cp build/ s3://4698-dev/test/
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --update
+          aws --version
+      - name: AWS set Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      # - name: Deploy to S3
+      #   run: |
+      #     aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws configure set default.region ap-northeast-1
+      #     aws s3 cp build/ s3://4698-dev/test/
