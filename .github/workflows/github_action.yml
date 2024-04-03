@@ -24,7 +24,7 @@ jobs:
           
       - name: npm version confirm
         run: npm --version
-      # AWS CLIをインストールする
+
       - name: AWS CLI install
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -32,8 +32,12 @@ jobs:
           sudo ./aws/install --update
           aws --version
           
-      - name: Deploy to S3
+      - name: AWS credential create
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ap-northeast-1
+
+      - nam: S3 update
+        run: |
+          aws s3 ls
