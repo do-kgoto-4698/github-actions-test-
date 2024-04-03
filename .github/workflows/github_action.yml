@@ -10,15 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
         
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Cache Dependency
+        uses: actions/cache@v3
+        id: cache_dependency
+        env:
+          cache-name: cache-dependency
         with:
-          node-version: '16'
-          cache: npm
-          cache-dependency-path: ./frontend/yarn.lock
+          path: "**/node_modules"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
           
       - name: Install dependencies
         run: npm install
